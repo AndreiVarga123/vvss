@@ -136,7 +136,4 @@ public class Service {
 
         notaXmlRepo.createFile(nota);
     }
-    public boolean studentExists(String idStudent){
-        return studentXmlRepo.findOne(idStudent) != null;
-    }
 }

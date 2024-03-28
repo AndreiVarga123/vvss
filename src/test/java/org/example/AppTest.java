@@ -16,7 +16,9 @@ import repository.TemaXMLRepository;
 import service.Service;
 import validation.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -42,32 +44,24 @@ public class AppTest
         String idStudent = "55";
         String numeStudent = "test";
         int grupa = 934;
-
-        try {
-            service.saveStudent(idStudent, numeStudent, grupa);
-        } catch (ValidationException exception) {
-            System.out.println(exception);
-            assert(false);
-        }
-
-        assert ( service.studentExists(idStudent));
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(studs.stream().map(s->s.getID()).anyMatch(id->id.equals("55")));
     }
 
 
     @Test
-    public void addStudent_no_id() {
+    public void addStudent_NoId_ThrowsError() {
         String idStudent = null;
         String numeStudent = "test";
         int grupa = 934;
-
-        try {
-            service.saveStudent(idStudent, numeStudent, grupa);
-        } catch (ValidationException exception) {
-            System.out.println(exception);
-            assert(false);
-        }
-
-        assert ( service.studentExists(idStudent));
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(studs.stream().map(s->s.getID()).anyMatch(id->id.equals(null)));
     }
 }
 
