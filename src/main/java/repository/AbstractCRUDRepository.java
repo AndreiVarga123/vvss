@@ -1,6 +1,7 @@
 package repository;
 
 import domain.HasID;
+import domain.Student;
 import validation.ValidationException;
 import validation.Validator;
 
@@ -37,7 +38,7 @@ public abstract class AbstractCRUDRepository<ID, E extends HasID<ID>> implements
         }
         catch (ValidationException ve) {
             System.out.println("Entitatea nu este valida! \n");
-            return null;
+            return (E) new Student("0","0",0);
         }
     }
 

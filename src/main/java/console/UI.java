@@ -193,7 +193,7 @@ public class UI {
     }
 
     public void run() {
-        hardcoded();
+        //hardcoded();
 
         Scanner scanner = new Scanner(System.in);
         int cmd = -1;

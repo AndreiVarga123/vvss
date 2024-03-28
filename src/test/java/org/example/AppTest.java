@@ -61,7 +61,89 @@ public class AppTest
         final List<Student> studs = new ArrayList<Student>();
         Iterator<Student> itStud = service.findAllStudents().iterator();
         itStud.forEachRemaining(studs::add);
-        assert(studs.stream().map(s->s.getID()).anyMatch(id->id.equals(null)));
+        assert(!studs.stream().map(s->s.getID()).anyMatch(id->id.equals(null)));
     }
+
+    @Test
+    public void addStudent_emptyString_ThrowsError(){
+        String idStudent = "";
+        String numeStudent = "test";
+        int grupa = 934;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(!studs.stream().map(s->s.getID()).anyMatch(id->id.equals("")));
+    }
+
+    @Test
+    public  void addStudent_emptyName(){
+        String idStudent = "60";
+        String numeStudent = "";
+        int grupa = 934;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(!studs.stream().map(s->s.getID()).anyMatch(id->id.equals("60")));
+    }
+    @Test
+    public  void addStudent_nullName(){
+        String idStudent = "61";
+        String numeStudent = null;
+        int grupa = 934;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(!studs.stream().map(s->s.getID()).anyMatch(id->id.equals("61 ")));
+    }
+    @Test
+    public  void addStudent_group_0(){
+        String idStudent = "62";
+        String numeStudent = "test";
+        int grupa = 0;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(!studs.stream().map(s->s.getID()).anyMatch(id->id.equals("62")));
+    }
+    @Test
+    public  void addStudent_group_negative(){
+        String idStudent = "63";
+        String numeStudent = "test";
+        int grupa = -934;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(!studs.stream().map(s->s.getID()).anyMatch(id->id.equals("63")));
+    }
+    @Test
+    public  void addStudent_group_less_than_100(){
+        String idStudent = "64";
+        String numeStudent = "test";
+        int grupa = 3;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(!studs.stream().map(s->s.getID()).anyMatch(id->id.equals("64")));
+    }
+
+    @Test
+    public  void addStudent_Existing_id(){
+        String idStudent = "1";
+        String numeStudent = "testforexistingid";
+        int grupa = 934;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(!studs.stream().map(s->s.getNume()).anyMatch(nume->nume.equals("testforexistingid")));
+    }
+
+
 }
 
