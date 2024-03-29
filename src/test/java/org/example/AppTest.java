@@ -144,6 +144,31 @@ public class AppTest
         assert(!studs.stream().map(s->s.getNume()).anyMatch(nume->nume.equals("testforexistingid")));
     }
 
+    @Test
+    public void addAssignment_ValidData(){
+        String idAssignment = "50";
+        String descriere = "Test";
+        int deadline = 3;
+        int startline = 2;
+        service.saveTema(idAssignment, descriere, deadline, startline);
+        final List<Tema> temas = new ArrayList<Tema>();
+        Iterator<Tema> itTema = service.findAllTeme().iterator();
+        itTema.forEachRemaining(temas::add);
+        assert(temas.stream().map(t->t.getID()).anyMatch(id->id.equals("50")));
+    }
+
+    @Test
+    public void addAssignment_duplicateId(){
+        String idAssignment = "1";
+        String descriere = "TestDUPLICATE";
+        int deadline = 3;
+        int startline = 2;
+        service.saveTema(idAssignment, descriere, deadline, startline);
+        final List<Tema> temas = new ArrayList<Tema>();
+        Iterator<Tema> itTema = service.findAllTeme().iterator();
+        itTema.forEachRemaining(temas::add);
+        assert(!temas.stream().map(t->t.getDescriere()).anyMatch(desc->desc.equals("TestDUPLICATE")));
+    }
 
 }
 
