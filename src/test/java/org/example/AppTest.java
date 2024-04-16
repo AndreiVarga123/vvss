@@ -170,5 +170,18 @@ public class AppTest
         assert(!temas.stream().map(t->t.getDescriere()).anyMatch(desc->desc.equals("TestDUPLICATE")));
     }
 
+    @Test
+    public void addAssignment_deadlineBeforeStartline(){
+        String idAssignment = "555";
+        String descriere = "deadlineBeforeStartline";
+        int deadline = 2;
+        int startline = 3;
+        service.saveTema(idAssignment, descriere, deadline, startline);
+        final List<Tema> temas = new ArrayList<Tema>();
+        Iterator<Tema> itTema = service.findAllTeme().iterator();
+        itTema.forEachRemaining(temas::add);
+        assert(!temas.stream().map(t->t.getID()).anyMatch(id->id.equals("555")));
+    }
+
 }
 
