@@ -182,24 +182,6 @@ public class AppTest
     }
 
     @Test
-    public void addGrade_ValidExistingData(){
-
-        String idStudent = "1";
-        String idAssignment = "3";
-        double valNota = 9;
-        int predata =8;
-        String feedback = "done";
-
-
-        service.saveNota(idStudent, idAssignment, valNota, predata, feedback);
-        final List<Nota> grades = new ArrayList<Nota>();
-        Iterator<Nota> itNota = service.findAllNote().iterator();
-        itNota.forEachRemaining(grades::add);
-        assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
-
-    }
-
-    @Test
     public void integrationTest_ValidGrade(){
         String idStudent = "67";
         String idAssignment = "67";
@@ -222,6 +204,26 @@ public class AppTest
         assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
 
     }
+
+    @Test
+    public void addGrade_ValidExistingData(){
+
+        String idStudent = "1";
+        String idAssignment = "3";
+        double valNota = 9;
+        int predata =8;
+        String feedback = "done";
+
+
+        service.saveNota(idStudent, idAssignment, valNota, predata, feedback);
+        final List<Nota> grades = new ArrayList<Nota>();
+        Iterator<Nota> itNota = service.findAllNote().iterator();
+        itNota.forEachRemaining(grades::add);
+        assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
+
+    }
+
+
 
 }
 
