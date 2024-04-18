@@ -199,5 +199,29 @@ public class AppTest
 
     }
 
+    @Test
+    public void integrationTest_ValidGrade(){
+        String idStudent = "67";
+        String idAssignment = "67";
+        double valNota = 9;
+        int predata =3;
+        String feedback = "done";
+        String numeStudent = "test";
+        int grupa = 934;
+
+        String descriere = "Test";
+        int deadline = 3;
+        int startline = 2;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        service.saveTema(idAssignment, descriere, deadline, startline);
+
+        service.saveNota(idStudent, idAssignment, valNota, predata, feedback);
+        final List<Nota> grades = new ArrayList<Nota>();
+        Iterator<Nota> itNota = service.findAllNote().iterator();
+        itNota.forEachRemaining(grades::add);
+        assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
+
+    }
+
 }
 
