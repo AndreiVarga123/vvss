@@ -1,15 +1,13 @@
 package org.example;
 
-import domain.Student;
+import domain.*;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import service.Service;
-import domain.Nota;
 import domain.Student;
-import domain.Tema;
 import repository.NotaXMLRepository;
 import repository.StudentXMLRepository;
 import repository.TemaXMLRepository;
@@ -181,6 +179,24 @@ public class AppTest
         Iterator<Tema> itTema = service.findAllTeme().iterator();
         itTema.forEachRemaining(temas::add);
         assert(!temas.stream().map(t->t.getID()).anyMatch(id->id.equals("555")));
+    }
+
+    @Test
+    public void addGrade_ValidExistingData(){
+
+        String idStudent = "1";
+        String idAssignment = "3";
+        double valNota = 9;
+        int predata =8;
+        String feedback = "done";
+
+
+        service.saveNota(idStudent, idAssignment, valNota, predata, feedback);
+        final List<Nota> grades = new ArrayList<Nota>();
+        Iterator<Nota> itNota = service.findAllNote().iterator();
+        itNota.forEachRemaining(grades::add);
+        assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
+
     }
 
 }
