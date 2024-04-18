@@ -2,8 +2,6 @@ package org.example;
 
 import domain.*;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import service.Service;
@@ -11,7 +9,6 @@ import domain.Student;
 import repository.NotaXMLRepository;
 import repository.StudentXMLRepository;
 import repository.TemaXMLRepository;
-import service.Service;
 import validation.*;
 
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ import java.util.List;
 /**
  * Unit test for simple App.
  */
-public class IntegrationTestGrade { public static Service service;
+public class IntegrationGradeTest { public static Service service;
     @BeforeAll
     public  static  void setup(){
         Validator<Student> studentValidator = new StudentValidator();
