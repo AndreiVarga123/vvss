@@ -73,7 +73,7 @@ public class IntegrationGradeTest { public static Service service;
     }
 
     @Test
-    public void integrationTest_ValidGrade(){
+    public void integration_ValidGrade(){
         String idStudent = "67";
         String idAssignment = "67";
         double valNota = 9;
