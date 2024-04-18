@@ -182,7 +182,7 @@ public class AppTest
     }
 
     @Test
-    public void integration_ValidGrade(){
+    public void addGrade_ValidExistingData(){
         String idStudent = "67";
         String idAssignment = "67";
         double valNota = 9;
@@ -206,7 +206,7 @@ public class AppTest
     }
 
     @Test
-    public void addGrade_ValidExistingData(){
+    public void integration_ValidGrade(){
 
         String idStudent = "1";
         String idAssignment = "3";
