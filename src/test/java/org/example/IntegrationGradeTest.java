@@ -62,7 +62,7 @@ public class IntegrationGradeTest { public static Service service;
         String idStudent = "1";
         String idAssignment = "3";
         double valNota = 9;
-        int predata =8;
+        int predata =10;
         String feedback = "done";
 
         service.saveNota(idStudent, idAssignment, valNota, predata, feedback);
@@ -70,6 +70,28 @@ public class IntegrationGradeTest { public static Service service;
         Iterator<Nota> itNota = service.findAllNote().iterator();
         itNota.forEachRemaining(grades::add);
         assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
+    }
+
+    @Test
+    public void addAssignment_addStudent_IntegrationTest(){
+        String idAssignment = "51";
+        String descriere = "Test";
+        int deadline = 3;
+        int startline = 2;
+        service.saveTema(idAssignment, descriere, deadline, startline);
+        final List<Tema> temas = new ArrayList<Tema>();
+        Iterator<Tema> itTema = service.findAllTeme().iterator();
+        itTema.forEachRemaining(temas::add);
+        assert(temas.stream().map(t->t.getID()).anyMatch(id->id.equals("51")));
+
+        String idStudent = "56";
+        String numeStudent = "test";
+        int grupa = 934;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(studs.stream().map(s->s.getID()).anyMatch(id->id.equals("56")));
     }
 
     @Test
@@ -95,6 +117,56 @@ public class IntegrationGradeTest { public static Service service;
         assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
 
     }
+
+    @Test
+    public void integration_ValidGrade_combined(){
+        String idStudent = "68";
+        String idAssignment = "68";
+        double valNota = 9;
+        int predata =3;
+        String feedback = "done";
+        String numeStudent = "test";
+        int grupa = 934;
+
+        String descriere = "Test";
+        int deadline = 3;
+        int startline = 2;
+        service.saveStudent(idStudent, numeStudent, grupa);
+        service.saveTema(idAssignment, descriere, deadline, startline);
+        final List<Tema> temas = new ArrayList<Tema>();
+        Iterator<Tema> itTema = service.findAllTeme().iterator();
+        itTema.forEachRemaining(temas::add);
+        assert(temas.stream().map(t->t.getID()).anyMatch(id->id.equals("68")));
+        final List<Student> studs = new ArrayList<Student>();
+        Iterator<Student> itStud = service.findAllStudents().iterator();
+        itStud.forEachRemaining(studs::add);
+        assert(studs.stream().map(s->s.getID()).anyMatch(id->id.equals("68")));
+
+
+
+        service.saveNota(idStudent, idAssignment, valNota, predata, feedback);
+        final List<Nota> grades = new ArrayList<Nota>();
+        Iterator<Nota> itNota = service.findAllNote().iterator();
+        itNota.forEachRemaining(grades::add);
+        assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
+
+    }
+
+    @Test
+    public void addGrade_ValNotaOver10(){
+        String idStudent = "2";
+        String idAssignment = "44";
+        double valNota = 12;
+        int predata =4;
+        String feedback = "done";
+
+        service.saveNota(idStudent, idAssignment, valNota, predata, feedback);
+        final List<Nota> grades = new ArrayList<Nota>();
+        Iterator<Nota> itNota = service.findAllNote().iterator();
+        itNota.forEachRemaining(grades::add);
+        assert (grades.stream().map(g->g.getID()).anyMatch(id->id.equals(new Pair(idStudent,idAssignment))));
+    }
+
 
 }
 
